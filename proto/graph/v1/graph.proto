@@ -50,6 +50,7 @@ message IlluminateRequest {
     string seed = 1;
     uint32 step = 2;
     uint32 k = 3;
+    bool tfidf = 4;
 }
 
 message IlluminateResponse {
