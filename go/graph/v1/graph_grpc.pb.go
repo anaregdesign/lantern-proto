@@ -24,8 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type LanternServiceClient interface {
 	Illuminate(ctx context.Context, in *IlluminateRequest, opts ...grpc.CallOption) (*IlluminateResponse, error)
 	GetVertex(ctx context.Context, in *GetVertexRequest, opts ...grpc.CallOption) (*GetVertexResponse, error)
-	Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOption) (*PutResponse, error)
 	PutVertex(ctx context.Context, in *PutVertexRequest, opts ...grpc.CallOption) (*PutVertexResponse, error)
+	GetEdge(ctx context.Context, in *GetEdgeRequest, opts ...grpc.CallOption) (*GetEdgeResponse, error)
 	PutEdge(ctx context.Context, in *PutEdgeRequest, opts ...grpc.CallOption) (*PutEdgeResponse, error)
 }
 
@@ -55,18 +55,18 @@ func (c *lanternServiceClient) GetVertex(ctx context.Context, in *GetVertexReque
 	return out, nil
 }
 
-func (c *lanternServiceClient) Put(ctx context.Context, in *PutRequest, opts ...grpc.CallOption) (*PutResponse, error) {
-	out := new(PutResponse)
-	err := c.cc.Invoke(ctx, "/graph.v1.LanternService/Put", in, out, opts...)
+func (c *lanternServiceClient) PutVertex(ctx context.Context, in *PutVertexRequest, opts ...grpc.CallOption) (*PutVertexResponse, error) {
+	out := new(PutVertexResponse)
+	err := c.cc.Invoke(ctx, "/graph.v1.LanternService/PutVertex", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *lanternServiceClient) PutVertex(ctx context.Context, in *PutVertexRequest, opts ...grpc.CallOption) (*PutVertexResponse, error) {
-	out := new(PutVertexResponse)
-	err := c.cc.Invoke(ctx, "/graph.v1.LanternService/PutVertex", in, out, opts...)
+func (c *lanternServiceClient) GetEdge(ctx context.Context, in *GetEdgeRequest, opts ...grpc.CallOption) (*GetEdgeResponse, error) {
+	out := new(GetEdgeResponse)
+	err := c.cc.Invoke(ctx, "/graph.v1.LanternService/GetEdge", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,8 +88,8 @@ func (c *lanternServiceClient) PutEdge(ctx context.Context, in *PutEdgeRequest, 
 type LanternServiceServer interface {
 	Illuminate(context.Context, *IlluminateRequest) (*IlluminateResponse, error)
 	GetVertex(context.Context, *GetVertexRequest) (*GetVertexResponse, error)
-	Put(context.Context, *PutRequest) (*PutResponse, error)
 	PutVertex(context.Context, *PutVertexRequest) (*PutVertexResponse, error)
+	GetEdge(context.Context, *GetEdgeRequest) (*GetEdgeResponse, error)
 	PutEdge(context.Context, *PutEdgeRequest) (*PutEdgeResponse, error)
 	mustEmbedUnimplementedLanternServiceServer()
 }
@@ -104,11 +104,11 @@ func (UnimplementedLanternServiceServer) Illuminate(context.Context, *Illuminate
 func (UnimplementedLanternServiceServer) GetVertex(context.Context, *GetVertexRequest) (*GetVertexResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVertex not implemented")
 }
-func (UnimplementedLanternServiceServer) Put(context.Context, *PutRequest) (*PutResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Put not implemented")
-}
 func (UnimplementedLanternServiceServer) PutVertex(context.Context, *PutVertexRequest) (*PutVertexResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PutVertex not implemented")
+}
+func (UnimplementedLanternServiceServer) GetEdge(context.Context, *GetEdgeRequest) (*GetEdgeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEdge not implemented")
 }
 func (UnimplementedLanternServiceServer) PutEdge(context.Context, *PutEdgeRequest) (*PutEdgeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PutEdge not implemented")
@@ -162,24 +162,6 @@ func _LanternService_GetVertex_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LanternService_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PutRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LanternServiceServer).Put(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/graph.v1.LanternService/Put",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LanternServiceServer).Put(ctx, req.(*PutRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _LanternService_PutVertex_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PutVertexRequest)
 	if err := dec(in); err != nil {
@@ -194,6 +176,24 @@ func _LanternService_PutVertex_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LanternServiceServer).PutVertex(ctx, req.(*PutVertexRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LanternService_GetEdge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEdgeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LanternServiceServer).GetEdge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/graph.v1.LanternService/GetEdge",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LanternServiceServer).GetEdge(ctx, req.(*GetEdgeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -232,12 +232,12 @@ var LanternService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LanternService_GetVertex_Handler,
 		},
 		{
-			MethodName: "Put",
-			Handler:    _LanternService_Put_Handler,
-		},
-		{
 			MethodName: "PutVertex",
 			Handler:    _LanternService_PutVertex_Handler,
+		},
+		{
+			MethodName: "GetEdge",
+			Handler:    _LanternService_GetEdge_Handler,
 		},
 		{
 			MethodName: "PutEdge",
