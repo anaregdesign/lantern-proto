@@ -211,6 +211,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -276,12 +277,14 @@
         "vertices": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Vertex"
           }
         },
         "edges": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Edge"
           }
         }
@@ -304,6 +307,7 @@
         "edges": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Edge"
           }
         }
@@ -323,6 +327,7 @@
         "vertices": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Vertex"
           }
         }
