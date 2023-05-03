@@ -70,15 +70,13 @@
             "name": "tail",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "byte"
+            "type": "string"
           },
           {
             "name": "head",
             "in": "path",
             "required": true,
-            "type": "string",
-            "format": "byte"
+            "type": "string"
           }
         ],
         "tags": [
