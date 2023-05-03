@@ -48,6 +48,44 @@
         ]
       }
     },
+    "/v1/edges/{tail}/{head}": {
+      "get": {
+        "operationId": "LanternService_GetEdge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEdgeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tail",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "head",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "byte"
+          }
+        ],
+        "tags": [
+          "LanternService"
+        ]
+      }
+    },
     "/v1/illuminate/{seed}": {
       "get": {
         "operationId": "LanternService_Illuminate",
@@ -80,7 +118,7 @@
             "format": "int64"
           },
           {
-            "name": "topK",
+            "name": "k",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -156,22 +194,6 @@
     }
   },
   "definitions": {
-    "GraphStatsVertexDegree": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "in": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "out": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
     "googlerpcStatus": {
       "type": "object",
       "properties": {
@@ -228,6 +250,14 @@
         }
       }
     },
+    "v1GetEdgeResponse": {
+      "type": "object",
+      "properties": {
+        "edge": {
+          "$ref": "#/definitions/v1Edge"
+        }
+      }
+    },
     "v1GetVertexResponse": {
       "type": "object",
       "properties": {
@@ -249,20 +279,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Edge"
-          }
-        },
-        "stats": {
-          "$ref": "#/definitions/v1GraphStats"
-        }
-      }
-    },
-    "v1GraphStats": {
-      "type": "object",
-      "properties": {
-        "vertexDegrees": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/GraphStatsVertexDegree"
           }
         }
       }
@@ -290,14 +306,6 @@
       }
     },
     "v1PutEdgeResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/graphv1Status"
-        }
-      }
-    },
-    "v1PutResponse": {
       "type": "object",
       "properties": {
         "status": {

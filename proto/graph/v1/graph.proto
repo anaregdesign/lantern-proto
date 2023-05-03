@@ -34,20 +34,9 @@ message Edge {
     google.protobuf.Timestamp expiration = 4;
 }
 
-message GraphStats {
-    message VertexDegree {
-        string key = 1;
-        uint32 in = 2;
-        uint32 out = 3;
-    }
-
-    repeated VertexDegree vertex_degrees = 1;
-}
-
 message Graph {
     repeated Vertex vertices = 1;
     repeated Edge edges = 2;
-    GraphStats stats = 3;
 }
 
 enum Status {
@@ -60,7 +49,7 @@ enum Status {
 message IlluminateRequest {
     string seed = 1;
     uint32 step = 2;
-    uint32 top_k = 3;
+    uint32 k = 3;
 }
 
 message IlluminateResponse {
@@ -76,20 +65,21 @@ message GetVertexResponse {
     Vertex vertex = 1;
 }
 
-message PutRequest {
-    Graph graph = 1;
-}
-
-message PutResponse {
-    Status status = 1;
-}
-
 message PutVertexRequest {
     repeated Vertex vertices = 1;
 }
 
 message PutVertexResponse {
     Status status = 1;
+}
+
+message GetEdgeRequest {
+    bytes tail = 1;
+    bytes head = 2;
+}
+
+message GetEdgeResponse {
+    Edge edge = 1;
 }
 
 message PutEdgeRequest {
@@ -107,19 +97,26 @@ service LanternService {
             get: "/v1/illuminate/{seed}"
         };
     }
+
     rpc GetVertex (GetVertexRequest) returns (GetVertexResponse) {
         option (google.api.http) = {
             get: "/v1/vertices/{key}"
         };
     }
-    rpc Put (PutRequest) returns (PutResponse) {
-    }
+
     rpc PutVertex (PutVertexRequest) returns (PutVertexResponse) {
         option (google.api.http) = {
             put: "/v1/vertices"
             body: "*"
         };
     }
+
+    rpc GetEdge (GetEdgeRequest) returns (GetEdgeResponse) {
+        option (google.api.http) = {
+            get: "/v1/edges/{tail}/{head}"
+        };
+    }
+
     rpc PutEdge (PutEdgeRequest) returns (PutEdgeResponse) {
         option (google.api.http) = {
             put: "/v1/edges"
