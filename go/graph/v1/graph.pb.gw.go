@@ -203,7 +203,7 @@ func request_LanternService_GetEdge_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tail")
 	}
 
-	protoReq.Tail, err = runtime.Bytes(val)
+	protoReq.Tail, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tail", err)
 	}
@@ -213,7 +213,7 @@ func request_LanternService_GetEdge_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "head")
 	}
 
-	protoReq.Head, err = runtime.Bytes(val)
+	protoReq.Head, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "head", err)
 	}
@@ -239,7 +239,7 @@ func local_request_LanternService_GetEdge_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "tail")
 	}
 
-	protoReq.Tail, err = runtime.Bytes(val)
+	protoReq.Tail, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "tail", err)
 	}
@@ -249,7 +249,7 @@ func local_request_LanternService_GetEdge_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "head")
 	}
 
-	protoReq.Head, err = runtime.Bytes(val)
+	protoReq.Head, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "head", err)
 	}

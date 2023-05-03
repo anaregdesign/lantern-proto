@@ -75,8 +75,8 @@ message PutVertexResponse {
 }
 
 message GetEdgeRequest {
-    bytes tail = 1;
-    bytes head = 2;
+    string tail = 1;
+    string head = 2;
 }
 
 message GetEdgeResponse {
