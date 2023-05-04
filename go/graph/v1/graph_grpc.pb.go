@@ -34,7 +34,7 @@ type LanternServiceClient interface {
 	GetVertex(ctx context.Context, in *GetVertexRequest, opts ...grpc.CallOption) (*GetVertexResponse, error)
 	PutVertex(ctx context.Context, in *PutVertexRequest, opts ...grpc.CallOption) (*PutVertexResponse, error)
 	GetEdge(ctx context.Context, in *GetEdgeRequest, opts ...grpc.CallOption) (*GetEdgeResponse, error)
-	PutEdge(ctx context.Context, in *PutEdgeRequest, opts ...grpc.CallOption) (*PutEdgeResponse, error)
+	PutEdge(ctx context.Context, in *AddEdgeRequest, opts ...grpc.CallOption) (*AddEdgeResponse, error)
 }
 
 type lanternServiceClient struct {
@@ -81,8 +81,8 @@ func (c *lanternServiceClient) GetEdge(ctx context.Context, in *GetEdgeRequest, 
 	return out, nil
 }
 
-func (c *lanternServiceClient) PutEdge(ctx context.Context, in *PutEdgeRequest, opts ...grpc.CallOption) (*PutEdgeResponse, error) {
-	out := new(PutEdgeResponse)
+func (c *lanternServiceClient) PutEdge(ctx context.Context, in *AddEdgeRequest, opts ...grpc.CallOption) (*AddEdgeResponse, error) {
+	out := new(AddEdgeResponse)
 	err := c.cc.Invoke(ctx, LanternService_PutEdge_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ type LanternServiceServer interface {
 	GetVertex(context.Context, *GetVertexRequest) (*GetVertexResponse, error)
 	PutVertex(context.Context, *PutVertexRequest) (*PutVertexResponse, error)
 	GetEdge(context.Context, *GetEdgeRequest) (*GetEdgeResponse, error)
-	PutEdge(context.Context, *PutEdgeRequest) (*PutEdgeResponse, error)
+	PutEdge(context.Context, *AddEdgeRequest) (*AddEdgeResponse, error)
 	mustEmbedUnimplementedLanternServiceServer()
 }
 
@@ -118,7 +118,7 @@ func (UnimplementedLanternServiceServer) PutVertex(context.Context, *PutVertexRe
 func (UnimplementedLanternServiceServer) GetEdge(context.Context, *GetEdgeRequest) (*GetEdgeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEdge not implemented")
 }
-func (UnimplementedLanternServiceServer) PutEdge(context.Context, *PutEdgeRequest) (*PutEdgeResponse, error) {
+func (UnimplementedLanternServiceServer) PutEdge(context.Context, *AddEdgeRequest) (*AddEdgeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PutEdge not implemented")
 }
 func (UnimplementedLanternServiceServer) mustEmbedUnimplementedLanternServiceServer() {}
@@ -207,7 +207,7 @@ func _LanternService_GetEdge_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _LanternService_PutEdge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PutEdgeRequest)
+	in := new(AddEdgeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func _LanternService_PutEdge_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: LanternService_PutEdge_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LanternServiceServer).PutEdge(ctx, req.(*PutEdgeRequest))
+		return srv.(LanternServiceServer).PutEdge(ctx, req.(*AddEdgeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

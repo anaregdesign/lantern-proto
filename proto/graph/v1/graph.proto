@@ -83,11 +83,11 @@ message GetEdgeResponse {
     Edge edge = 1;
 }
 
-message PutEdgeRequest {
+message AddEdgeRequest {
     repeated Edge edges = 1;
 }
 
-message PutEdgeResponse {
+message AddEdgeResponse {
     Status status = 1;
 }
 
@@ -118,7 +118,7 @@ service LanternService {
         };
     }
 
-    rpc PutEdge (PutEdgeRequest) returns (PutEdgeResponse) {
+    rpc PutEdge (AddEdgeRequest) returns (AddEdgeResponse) {
         option (google.api.http) = {
             put: "/v1/edges"
             body: "*"
