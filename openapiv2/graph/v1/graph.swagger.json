@@ -127,6 +127,20 @@
             "in": "query",
             "required": false,
             "type": "boolean"
+          },
+          {
+            "name": "calculation",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "CALCULATION_UNSPECIFIED",
+              "CALCULATION_MINIMUM_SPANNING_TREE",
+              "CALCULATION_MAXIMUM_SPANNING_TREE",
+              "CALCULATION_SHORTEST_PATH_TREE",
+              "CALCULATION_SHORTEST_PATH_TREE_INVERSE"
+            ],
+            "default": "CALCULATION_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -255,6 +269,17 @@
           "$ref": "#/definitions/graphv1Status"
         }
       }
+    },
+    "v1CALCULATION": {
+      "type": "string",
+      "enum": [
+        "CALCULATION_UNSPECIFIED",
+        "CALCULATION_MINIMUM_SPANNING_TREE",
+        "CALCULATION_MAXIMUM_SPANNING_TREE",
+        "CALCULATION_SHORTEST_PATH_TREE",
+        "CALCULATION_SHORTEST_PATH_TREE_INVERSE"
+      ],
+      "default": "CALCULATION_UNSPECIFIED"
     },
     "v1Edge": {
       "type": "object",
