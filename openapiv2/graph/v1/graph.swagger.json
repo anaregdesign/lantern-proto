@@ -129,7 +129,7 @@
             "type": "boolean"
           },
           {
-            "name": "calculation",
+            "name": "optimization",
             "in": "query",
             "required": false,
             "type": "string",
