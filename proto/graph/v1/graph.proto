@@ -39,12 +39,12 @@ message Graph {
     repeated Edge edges = 2;
 }
 
-enum CALCULATION {
-    CALCULATION_UNSPECIFIED = 0;
-    CALCULATION_MINIMUM_SPANNING_TREE = 1;
-    CALCULATION_MAXIMUM_SPANNING_TREE = 2;
-    CALCULATION_SHORTEST_PATH_TREE = 3;
-    CALCULATION_SHORTEST_PATH_TREE_INVERSE = 4;
+enum Optimization {
+    OPTIMIZATION_UNSPECIFIED = 0;
+    OPTIMIZATION_MINIMUM_SPANNING_TREE = 1;
+    OPTIMIZATION_MAXIMUM_SPANNING_TREE = 2;
+    OPTIMIZATION_SHORTEST_PATH_TREE = 3;
+    OPTIMIZATION_SHORTEST_PATH_TREE_INVERSE = 4;
 }
 
 enum Status {
@@ -59,7 +59,7 @@ message IlluminateRequest {
     uint32 step = 2;
     uint32 k = 3;
     bool tfidf = 4;
-    CALCULATION calculation = 5;
+    Optimization calculation = 5;
 }
 
 message IlluminateResponse {

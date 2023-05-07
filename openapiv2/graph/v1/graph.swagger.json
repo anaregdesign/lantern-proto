@@ -134,13 +134,13 @@
             "required": false,
             "type": "string",
             "enum": [
-              "CALCULATION_UNSPECIFIED",
-              "CALCULATION_MINIMUM_SPANNING_TREE",
-              "CALCULATION_MAXIMUM_SPANNING_TREE",
-              "CALCULATION_SHORTEST_PATH_TREE",
-              "CALCULATION_SHORTEST_PATH_TREE_INVERSE"
+              "OPTIMIZATION_UNSPECIFIED",
+              "OPTIMIZATION_MINIMUM_SPANNING_TREE",
+              "OPTIMIZATION_MAXIMUM_SPANNING_TREE",
+              "OPTIMIZATION_SHORTEST_PATH_TREE",
+              "OPTIMIZATION_SHORTEST_PATH_TREE_INVERSE"
             ],
-            "default": "CALCULATION_UNSPECIFIED"
+            "default": "OPTIMIZATION_UNSPECIFIED"
           }
         ],
         "tags": [
@@ -270,17 +270,6 @@
         }
       }
     },
-    "v1CALCULATION": {
-      "type": "string",
-      "enum": [
-        "CALCULATION_UNSPECIFIED",
-        "CALCULATION_MINIMUM_SPANNING_TREE",
-        "CALCULATION_MAXIMUM_SPANNING_TREE",
-        "CALCULATION_SHORTEST_PATH_TREE",
-        "CALCULATION_SHORTEST_PATH_TREE_INVERSE"
-      ],
-      "default": "CALCULATION_UNSPECIFIED"
-    },
     "v1Edge": {
       "type": "object",
       "properties": {
@@ -345,6 +334,17 @@
           "$ref": "#/definitions/graphv1Status"
         }
       }
+    },
+    "v1Optimization": {
+      "type": "string",
+      "enum": [
+        "OPTIMIZATION_UNSPECIFIED",
+        "OPTIMIZATION_MINIMUM_SPANNING_TREE",
+        "OPTIMIZATION_MAXIMUM_SPANNING_TREE",
+        "OPTIMIZATION_SHORTEST_PATH_TREE",
+        "OPTIMIZATION_SHORTEST_PATH_TREE_INVERSE"
+      ],
+      "default": "OPTIMIZATION_UNSPECIFIED"
     },
     "v1PutVertexRequest": {
       "type": "object",
