@@ -59,7 +59,7 @@ message IlluminateRequest {
     uint32 step = 2;
     uint32 k = 3;
     bool tfidf = 4;
-    Optimization calculation = 5;
+    Optimization optimization = 5;
 }
 
 message IlluminateResponse {
