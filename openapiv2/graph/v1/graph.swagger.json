@@ -18,7 +18,7 @@
   "paths": {
     "/v1/edges": {
       "put": {
-        "operationId": "LanternService_PutEdge",
+        "operationId": "LanternService_AddEdge",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -56,6 +56,40 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1GetEdgeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tail",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "head",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LanternService"
+        ]
+      },
+      "delete": {
+        "operationId": "LanternService_DeleteEdge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteEdgeResponse"
             }
           },
           "default": {
@@ -208,6 +242,34 @@
         "tags": [
           "LanternService"
         ]
+      },
+      "delete": {
+        "operationId": "LanternService_DeleteVertex",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteVertexResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LanternService"
+        ]
       }
     }
   },
@@ -263,6 +325,22 @@
       }
     },
     "v1AddEdgeResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/graphv1Status"
+        }
+      }
+    },
+    "v1DeleteEdgeResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/graphv1Status"
+        }
+      }
+    },
+    "v1DeleteVertexResponse": {
       "type": "object",
       "properties": {
         "status": {
