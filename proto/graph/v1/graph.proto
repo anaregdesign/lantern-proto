@@ -83,6 +83,14 @@ message PutVertexResponse {
     Status status = 1;
 }
 
+message DeleteVertexRequest {
+    string key = 1;
+}
+
+message DeleteVertexResponse {
+    Status status = 1;
+}
+
 message GetEdgeRequest {
     string tail = 1;
     string head = 2;
@@ -90,6 +98,15 @@ message GetEdgeRequest {
 
 message GetEdgeResponse {
     Edge edge = 1;
+}
+
+message DeleteEdgeRequest {
+    string tail = 1;
+    string head = 2;
+}
+
+message DeleteEdgeResponse {
+    Status status = 1;
 }
 
 message AddEdgeRequest {
@@ -121,16 +138,28 @@ service LanternService {
         };
     }
 
+    rpc DeleteVertex(DeleteVertexRequest) returns (DeleteVertexResponse) {
+        option (google.api.http) = {
+            delete: "/v1/vertices/{key}"
+        };
+    }
+
     rpc GetEdge (GetEdgeRequest) returns (GetEdgeResponse) {
         option (google.api.http) = {
             get: "/v1/edges/{tail}/{head}"
         };
     }
 
-    rpc PutEdge (AddEdgeRequest) returns (AddEdgeResponse) {
+    rpc AddEdge (AddEdgeRequest) returns (AddEdgeResponse) {
         option (google.api.http) = {
             put: "/v1/edges"
             body: "*"
+        };
+    }
+
+    rpc DeleteEdge(DeleteEdgeRequest) returns (DeleteEdgeResponse) {
+        option (google.api.http) = {
+            delete: "/v1/edges/{tail}/{head}"
         };
     }
 }
