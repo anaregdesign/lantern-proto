@@ -73,6 +73,7 @@ message GetVertexRequest {
 
 message GetVertexResponse {
     Vertex vertex = 1;
+    Status status = 2;
 }
 
 message PutVertexRequest {
@@ -117,6 +118,13 @@ message AddEdgeResponse {
     Status status = 1;
 }
 
+message PutEdgeRequest {
+    repeated Edge edges = 1;
+}
+
+message PutEdgeResponse {
+    Status status = 1;
+}
 
 service LanternService {
     rpc Illuminate (IlluminateRequest) returns (IlluminateResponse) {
@@ -152,7 +160,14 @@ service LanternService {
 
     rpc AddEdge (AddEdgeRequest) returns (AddEdgeResponse) {
         option (google.api.http) = {
-            put: "/v1/edges"
+            put: "/v1/edges/add"
+            body: "*"
+        };
+    }
+
+    rpc PutEdge (PutEdgeRequest) returns (PutEdgeResponse) {
+        option (google.api.http) = {
+            put: "/v1/edges/put"
             body: "*"
         };
     }
