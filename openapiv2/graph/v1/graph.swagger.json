@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/edges": {
+    "/v1/edges/add": {
       "put": {
         "operationId": "LanternService_AddEdge",
         "responses": {
@@ -40,6 +40,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1AddEdgeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LanternService"
+        ]
+      }
+    },
+    "/v1/edges/put": {
+      "put": {
+        "operationId": "LanternService_PutEdge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PutEdgeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PutEdgeRequest"
             }
           }
         ],
@@ -380,6 +412,9 @@
       "properties": {
         "vertex": {
           "$ref": "#/definitions/v1Vertex"
+        },
+        "status": {
+          "$ref": "#/definitions/graphv1Status"
         }
       }
     },
@@ -423,6 +458,26 @@
         "OPTIMIZATION_SHORTEST_PATH_TREE_INVERSE"
       ],
       "default": "OPTIMIZATION_UNSPECIFIED"
+    },
+    "v1PutEdgeRequest": {
+      "type": "object",
+      "properties": {
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Edge"
+          }
+        }
+      }
+    },
+    "v1PutEdgeResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/graphv1Status"
+        }
+      }
     },
     "v1PutVertexRequest": {
       "type": "object",

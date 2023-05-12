@@ -25,6 +25,7 @@ const (
 	LanternService_DeleteVertex_FullMethodName = "/graph.v1.LanternService/DeleteVertex"
 	LanternService_GetEdge_FullMethodName      = "/graph.v1.LanternService/GetEdge"
 	LanternService_AddEdge_FullMethodName      = "/graph.v1.LanternService/AddEdge"
+	LanternService_PutEdge_FullMethodName      = "/graph.v1.LanternService/PutEdge"
 	LanternService_DeleteEdge_FullMethodName   = "/graph.v1.LanternService/DeleteEdge"
 )
 
@@ -38,6 +39,7 @@ type LanternServiceClient interface {
 	DeleteVertex(ctx context.Context, in *DeleteVertexRequest, opts ...grpc.CallOption) (*DeleteVertexResponse, error)
 	GetEdge(ctx context.Context, in *GetEdgeRequest, opts ...grpc.CallOption) (*GetEdgeResponse, error)
 	AddEdge(ctx context.Context, in *AddEdgeRequest, opts ...grpc.CallOption) (*AddEdgeResponse, error)
+	PutEdge(ctx context.Context, in *PutEdgeRequest, opts ...grpc.CallOption) (*PutEdgeResponse, error)
 	DeleteEdge(ctx context.Context, in *DeleteEdgeRequest, opts ...grpc.CallOption) (*DeleteEdgeResponse, error)
 }
 
@@ -103,6 +105,15 @@ func (c *lanternServiceClient) AddEdge(ctx context.Context, in *AddEdgeRequest, 
 	return out, nil
 }
 
+func (c *lanternServiceClient) PutEdge(ctx context.Context, in *PutEdgeRequest, opts ...grpc.CallOption) (*PutEdgeResponse, error) {
+	out := new(PutEdgeResponse)
+	err := c.cc.Invoke(ctx, LanternService_PutEdge_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *lanternServiceClient) DeleteEdge(ctx context.Context, in *DeleteEdgeRequest, opts ...grpc.CallOption) (*DeleteEdgeResponse, error) {
 	out := new(DeleteEdgeResponse)
 	err := c.cc.Invoke(ctx, LanternService_DeleteEdge_FullMethodName, in, out, opts...)
@@ -122,6 +133,7 @@ type LanternServiceServer interface {
 	DeleteVertex(context.Context, *DeleteVertexRequest) (*DeleteVertexResponse, error)
 	GetEdge(context.Context, *GetEdgeRequest) (*GetEdgeResponse, error)
 	AddEdge(context.Context, *AddEdgeRequest) (*AddEdgeResponse, error)
+	PutEdge(context.Context, *PutEdgeRequest) (*PutEdgeResponse, error)
 	DeleteEdge(context.Context, *DeleteEdgeRequest) (*DeleteEdgeResponse, error)
 	mustEmbedUnimplementedLanternServiceServer()
 }
@@ -147,6 +159,9 @@ func (UnimplementedLanternServiceServer) GetEdge(context.Context, *GetEdgeReques
 }
 func (UnimplementedLanternServiceServer) AddEdge(context.Context, *AddEdgeRequest) (*AddEdgeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddEdge not implemented")
+}
+func (UnimplementedLanternServiceServer) PutEdge(context.Context, *PutEdgeRequest) (*PutEdgeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PutEdge not implemented")
 }
 func (UnimplementedLanternServiceServer) DeleteEdge(context.Context, *DeleteEdgeRequest) (*DeleteEdgeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteEdge not implemented")
@@ -272,6 +287,24 @@ func _LanternService_AddEdge_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LanternService_PutEdge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PutEdgeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LanternServiceServer).PutEdge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LanternService_PutEdge_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LanternServiceServer).PutEdge(ctx, req.(*PutEdgeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _LanternService_DeleteEdge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteEdgeRequest)
 	if err := dec(in); err != nil {
@@ -320,6 +353,10 @@ var LanternService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddEdge",
 			Handler:    _LanternService_AddEdge_Handler,
+		},
+		{
+			MethodName: "PutEdge",
+			Handler:    _LanternService_PutEdge_Handler,
 		},
 		{
 			MethodName: "DeleteEdge",
